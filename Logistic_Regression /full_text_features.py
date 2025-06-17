@@ -50,3 +50,23 @@ print(f"Accuracy:  {np.mean(accuracies):.2f} ± {np.std(accuracies):.2f}")
 print(f"Precision: {np.mean(precisions):.2f} ± {np.std(precisions):.2f}")
 print(f"Recall:    {np.mean(recalls):.2f} ± {np.std(recalls):.2f}")
 print(f"F1 Score:  {np.mean(f1s):.2f} ± {np.std(f1s):.2f}")
+
+
+# Sum all confusion matrices across folds
+total_confusion = sum(confusion_matrices)
+
+print("\n Confusion Matrix:")
+print(total_confusion)
+
+# Confusion Matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(6, 5))
+sns.heatmap(total_confusion, annot=True, fmt='d', cmap='Blues',
+            xticklabels=["Pred 0", "Pred 1"],
+            yticklabels=["True 0", "True 1"])
+plt.title("Cumulative Confusion Matrix (Heatmap)")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
