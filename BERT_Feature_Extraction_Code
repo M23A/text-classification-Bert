@@ -1,0 +1,66 @@
+import pandas as pd
+import os
+from transformers import BertTokenizer, BertModel
+import torch
+from google.colab import drive
+
+# Mount Google Drive
+drive.mount('/content/drive')
+
+# Define input and output paths
+input_file = '/content/drive/MyDrive/Maram/Text/Text_chunks/cleaned_texts.csv'
+output_dir = '/content/drive/MyDrive/Maram/Text/Features_Extraction_from_text/Features_chunk_Text/Bert/bert_features'
+os.makedirs(output_dir, exist_ok=True)
+
+# Load pre-trained BERT model and tokenizer
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertModel.from_pretrained('bert-base-uncased')
+model.eval()
+
+# Function to chunk text
+def chunk_text(text, max_length=512):
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + max_length
+        if end >= len(text):
+            chunks.append(text[start:])
+            break
+        if text[end] != ' ':
+            while end > start and text[end] != ' ':
+                end -= 1
+        chunks.append(text[start:end])
+        start = end + 1
+    return chunks
+
+# Function to get BERT embedding
+def get_bert_embedding(text):
+    inputs = tokenizer(text, return_tensors='pt', padding=True, truncation=True, max_length=512)
+    with torch.no_grad():
+        outputs = model(**inputs)
+    return torch.mean(outputs.last_hidden_state, dim=1).squeeze().numpy()
+
+# Load the single CSV
+df = pd.read_csv(input_file)
+
+# Lists to hold embeddings and IDs
+all_embeddings = []
+all_pids = []
+
+# Process each row
+for index, row in df.iterrows():
+    text = str(row['text'])
+    pid = row['filename']
+    chunks = chunk_text(text)
+    for chunk in chunks:
+        embedding = get_bert_embedding(chunk)
+        all_embeddings.append(embedding)
+        all_pids.append(pid)
+
+# Save as DataFrame
+embeddings_df = pd.DataFrame(all_embeddings)
+final_df = pd.concat([pd.Series(all_pids, name='PID'), embeddings_df], axis=1)
+output_file = os.path.join(output_dir, "bert_features.csv")
+final_df.to_csv(output_file, index=False)
+
+print(f"Features saved to: {output_file}")
