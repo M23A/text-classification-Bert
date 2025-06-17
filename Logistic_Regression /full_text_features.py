@@ -23,43 +23,29 @@ LR_model = LogisticRegression(max_iter=1000)
 
 # Set up Stratified K-Fold Cross-Validation
 kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
-
-# Store metrics per fold
 accuracies = []
 precisions = []
 recalls = []
 f1s = []
 confusion_matrices = []
-predictions = []
-true_labels = []
-
 for train_index, test_index in kf.split(X_combined, y_combined):
     X_train, X_test = X_combined[train_index], X_combined[test_index]
     y_train, y_test = y_combined[train_index], y_combined[test_index]
-    # Initialize StandardScaler
+    
     scaler = StandardScaler()
-    # Scale the features
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
-    # Fit the model on the training data
+    
     LR_model.fit(X_train_scaled, y_train)
-
-    # Predict on the test set
     y_pred = LR_model.predict(X_test_scaled)
-
-    # Append predictions and true labels for evaluation
-    predictions.extend(y_pred)
-    true_labels.extend(y_test)
-
-    # Store individual fold metrics
+    
     accuracies.append(accuracy_score(y_test, y_pred))
     precisions.append(precision_score(y_test, y_pred, average='weighted'))
     recalls.append(recall_score(y_test, y_pred, average='weighted'))
     f1s.append(f1_score(y_test, y_pred, average='weighted'))
     confusion_matrices.append(confusion_matrix(y_test, y_pred))
 
-
-print("Evaluation Results (10-fold CV):")
+print("Evaluation Results:")
 print(f"Accuracy:  {np.mean(accuracies):.2f} ± {np.std(accuracies):.2f}")
 print(f"Precision: {np.mean(precisions):.2f} ± {np.std(precisions):.2f}")
 print(f"Recall:    {np.mean(recalls):.2f} ± {np.std(recalls):.2f}")
