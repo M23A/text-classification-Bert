@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GroupKFold, cross_val_score
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
@@ -61,9 +63,6 @@ total_confusion = sum(confusion_matrices)
 
 print("\n Confusion Matrix:")
 print(total_confusion)
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 plt.figure(figsize=(6, 5))
 sns.heatmap(total_confusion, annot=True, fmt='d', cmap='Blues',
             xticklabels=["Pred 0", "Pred 1"],
