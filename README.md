@@ -8,6 +8,11 @@
 |    MLP    |          |           |        |          |
 
 
+LR
+![image](https://github.com/user-attachments/assets/f3beae24-99eb-4130-8df3-3eccd3ac3351)
+
+
+
 ## Evaluation Metrics for Chunks
 
 | Model     | Accuracy | Precision | Recall | F1 Score |
