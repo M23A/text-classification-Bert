@@ -1,6 +1,8 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GroupKFold, cross_val_score
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score,confusion_matrix
@@ -34,11 +36,11 @@ true_labels = []
 for train_index, test_index in gkf.split(X_combined, y_combined, groups=person_ids):
     X_train, X_test = X_combined[train_index], X_combined[test_index]
     y_train, y_test = y_combined[train_index], y_combined[test_index]
+    
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
     
-
     rf_model.fit(X_train_scaled, y_train)
     y_pred = rf_model.predict( X_test_scaled)
 
@@ -59,14 +61,12 @@ print(f"Precision: {np.mean(precisions):.2f} ± {np.std(precisions):.2f}")
 print(f"Recall:    {np.mean(recalls):.2f} ± {np.std(recalls):.2f}")
 print(f"F1 Score:  {np.mean(f1s):.2f} ± {np.std(f1s):.2f}")
 
+
+
 # confusion matrices 
 total_confusion = sum(confusion_matrices)
-
 print("\nCumulative Confusion Matrix:")
 print(total_confusion)
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 plt.figure(figsize=(6, 5))
 sns.heatmap(total_confusion, annot=True, fmt='d', cmap='Blues',
