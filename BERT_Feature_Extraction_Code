@@ -17,7 +17,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
 model.eval()
 
-# Function to chunk text
+# Function to chunk text 
 def chunk_text(text, max_length=512):
     chunks = []
     start = 0
