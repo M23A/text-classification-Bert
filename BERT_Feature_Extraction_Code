@@ -18,27 +18,20 @@ model = BertModel.from_pretrained('bert-base-uncased')
 model.eval()
 
 # Function to chunk text 
-def chunk_text(text, max_length=512):
+def chunk_text_by_tokens(text, tokenizer, max_tokens=512):
+    tokens = tokenizer.encode(text, add_special_tokens=False)
     chunks = []
-    start = 0
-    while start < len(text):
-        end = start + max_length
-        if end >= len(text):
-            chunks.append(text[start:])
-            break
-        if text[end] != ' ':
-            while end > start and text[end] != ' ':
-                end -= 1
-        chunks.append(text[start:end])
-        start = end + 1
+    for i in range(0, len(tokens), max_tokens):
+        chunk = tokens[i:i + max_tokens]
+        chunks.append(chunk)
     return chunks
 
 # Function to get BERT embedding
-def get_bert_embedding(text):
-    inputs = tokenizer(text, return_tensors='pt', padding=True, truncation=True, max_length=512)
+def get_bert_embedding_from_tokens(tokens):
+    inputs = tokenizer(tokens,return_tensors='pt',padding=True,truncation=True,max_length=512,is_split_into_words=True)
     with torch.no_grad():
         outputs = model(**inputs)
-    return torch.mean(outputs.last_hidden_state, dim=1).squeeze().numpy()
+    return torch.mean(outputs.last_hidden_state, dim=1).squeeze().cpu().numpy()
 
 # Load the single CSV
 df = pd.read_csv(input_file)
@@ -51,11 +44,13 @@ all_pids = []
 for index, row in df.iterrows():
     text = str(row['text'])
     pid = row['filename']
-    chunks = chunk_text(text)
-    for chunk in chunks:
-        embedding = get_bert_embedding(chunk)
+    chunks = chunk_text_by_tokens(text, tokenizer)
+    
+    for token_chunk in chunks:
+        embedding = get_bert_embedding_from_tokens(token_chunk)
         all_embeddings.append(embedding)
         all_pids.append(pid)
+
 
 # Save as DataFrame
 embeddings_df = pd.DataFrame(all_embeddings)
