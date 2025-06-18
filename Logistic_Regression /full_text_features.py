@@ -1,10 +1,13 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt  # Confusion Matrix
+import seaborn as sns
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 from google.colab import drive
+
 
 
 # Mount Google Drive
@@ -23,11 +26,13 @@ LR_model = LogisticRegression(max_iter=1000)
 
 # Set up Stratified K-Fold Cross-Validation
 kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+
 accuracies = []
 precisions = []
 recalls = []
 f1s = []
 confusion_matrices = []
+
 for train_index, test_index in kf.split(X_combined, y_combined):
     X_train, X_test = X_combined[train_index], X_combined[test_index]
     y_train, y_test = y_combined[train_index], y_combined[test_index]
@@ -52,15 +57,11 @@ print(f"Recall:    {np.mean(recalls):.2f} ± {np.std(recalls):.2f}")
 print(f"F1 Score:  {np.mean(f1s):.2f} ± {np.std(f1s):.2f}")
 
 
-# Sum all confusion matrices across folds
+# confusion matrices across folds
 total_confusion = sum(confusion_matrices)
 
 print("\n Confusion Matrix:")
 print(total_confusion)
-
-# Confusion Matrix
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 plt.figure(figsize=(6, 5))
 sns.heatmap(total_confusion, annot=True, fmt='d', cmap='Blues',
