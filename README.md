@@ -7,9 +7,12 @@
 |    SVM    | 0.65 ± 0.25|0.66 ± 0.31|0.65 ± 0.25|0.61 ± 0.28|
 |    MLP    |          |           |        |          |
 
+|   LR   |   RF   |  SVM  |  MLP  |
+|--------|--------|-------|-------|
+|     ![image](https://github.com/user-attachments/assets/f3beae24-99eb-4130-8df3-3eccd3ac3351)   |![image](https://github.com/user-attachments/assets/d9a6fbb3-0b99-4981-b5b3-b8e805815a9f)
+        |![image](https://github.com/user-attachments/assets/932e1729-f8db-4ccc-98c8-0f15e7f5b6ae)
+       |       |
 
-LR
-![image](https://github.com/user-attachments/assets/f3beae24-99eb-4130-8df3-3eccd3ac3351)
 
 
 
@@ -21,3 +24,7 @@ LR
 |    RF     | 0.71 ± 0.03| 0.71 ± 0.03| 0.71 ± 0.03| 0.70 ± 0.04|
 |    SVM    |0.76 ± 0.02|0.76 ± 0.02|0.76 ± 0.02|0.76 ± 0.03|
 |    MLP    |          |           |        |          |
+
+|   LR   |   RF   |  SVM  |  MLP  |
+|--------|--------|-------|-------|
+|        |        |       |       |
