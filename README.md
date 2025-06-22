@@ -20,11 +20,12 @@
 | Model     | Accuracy | Precision | Recall | F1 Score |
 |-----------|----------|-----------|--------|----------|
 |    LR     |0.71 ± 0.05|0.71 ± 0.04|0.71 ± 0.05|0.71 ± 0.05|
-|    RF     | 0.71 ± 0.03| 0.71 ± 0.03| 0.71 ± 0.03| 0.70 ± 0.04|
+|    RF     | 0.70 ± 0.03|0.71 ± 0.03| 0.70 ± 0.03| 0.70 ± 0.03|
 |    SVM    |0.76 ± 0.02|0.76 ± 0.02|0.76 ± 0.02|0.76 ± 0.03|
 |    MLP    |0.55 ± 0.06          |0.54 ± 0.06           |0.55 ± 0.06        |0.54 ± 0.06          |
 
 |   LR   |   RF   |  SVM  |  MLP  |
 |--------|--------|-------|-------|
-|![image](https://github.com/user-attachments/assets/3e8d9a2d-f25a-4227-8038-d5dfd3feeace)|![image](https://github.com/user-attachments/assets/d406fab9-6c5b-4d3b-87f6-db94b6bc185d)|![image](https://github.com/user-attachments/assets/945acf16-0338-468f-8099-0a42466eab3e)|![image](https://github.com/user-attachments/assets/356111ef-0aa7-450f-a71d-038328e2065e)
+|![image](https://github.com/user-attachments/assets/3e8d9a2d-f25a-4227-8038-d5dfd3feeace)|<img width="386" alt="image" src="https://github.com/user-attachments/assets/7127f8bd-5ce5-4eef-b4d2-61be56548226" />
+|![image](https://github.com/user-attachments/assets/945acf16-0338-468f-8099-0a42466eab3e)|![image](https://github.com/user-attachments/assets/356111ef-0aa7-450f-a71d-038328e2065e)
 |
