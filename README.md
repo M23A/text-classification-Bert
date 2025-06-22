@@ -9,7 +9,8 @@
 
 |   LR   |   RF   |  SVM  |  MLP  |
 |--------|--------|-------|-------|
-|![image](https://github.com/user-attachments/assets/47fe40b1-7977-4a70-a602-b6a4c1773a41)|<img width="389" alt="image"src="https://github.com/userattachments/assets/50d36e15-4770-49b6-bda6-e9bbbb32677f" />|![image](https://github.com/user-attachments/assets/932e1729-f8db-4ccc-98c8-0f15e7f5b6ae)|<img width="395" alt="image" src="https://github.com/user-attachments/assets/5ac29d8d-a1f0-4912-9d20-14df76cb601a" />|
+|![image](https://github.com/user-attachments/assets/47fe40b1-7977-4a70-a602-b6a4c1773a41)|
+![image](https://github.com/userattachments/assets/50d36e15-4770-49b6-bda6-e9bbbb32677f) />|![image](https://github.com/user-attachments/assets/932e1729-f8db-4ccc-98c8-0f15e7f5b6ae)|![image](https://github.com/user-attachments/assets/5ac29d8d-a1f0-4912-9d20-14df76cb601a)|
 
 
 
