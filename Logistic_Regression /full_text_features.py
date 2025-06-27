@@ -15,14 +15,14 @@ drive.mount('/content/drive')
 
 
 # Load the CSV file
-data = pd.read_csv('/content/drive/MyDrive/Maram/Text/Features_Extraction_from_text/Features_full_Text/Bert_Fulltext_Features/Bert_label.csv')
+data = pd.read_csv('/content/drive/MyDrive/Maram/Text/Features_Extraction_from_text/Features_full_Text/Bert/Bert_label.csv')
 
 # Separate features (X) and labels (y)
-X_combined = data.drop('Label', axis=1).values  # Features without the label column
+X_combined = data.drop(['Label','PID'], axis=1).values  # Features without the label column
 y_combined = data['Label'].values  # Labels column
 
 # Initialize Logistic Regression model
-LR_model = LogisticRegression(max_iter=1000)
+LR_model = LogisticRegression( max_iter=1000)
 
 # Set up Stratified K-Fold Cross-Validation
 kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
@@ -36,14 +36,14 @@ confusion_matrices = []
 for train_index, test_index in kf.split(X_combined, y_combined):
     X_train, X_test = X_combined[train_index], X_combined[test_index]
     y_train, y_test = y_combined[train_index], y_combined[test_index]
-    
+
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
-    
+
     LR_model.fit(X_train_scaled, y_train)
     y_pred = LR_model.predict(X_test_scaled)
-    
+
     accuracies.append(accuracy_score(y_test, y_pred))
     precisions.append(precision_score(y_test, y_pred, average='weighted'))
     recalls.append(recall_score(y_test, y_pred, average='weighted'))
