@@ -22,8 +22,8 @@ y_combined = data['CAI State'].values  # Labels column
 # Define person_ids
 person_ids = data['PID']
 
-# Initialize the SVM model 
-svm_model = SVC(kernel='rbf',C=1 ,gamma='scale', probability=True)  
+# Initialize the SVM model
+svm_model = SVC(kernel='rbf',C=1 ,gamma='scale', probability=True)
 
 gkf = GroupKFold(n_splits=10)
 
@@ -56,18 +56,3 @@ print(f"Accuracy:  {np.mean(accuracies):.2f} ± {np.std(accuracies):.2f}")
 print(f"Precision: {np.mean(precisions):.2f} ± {np.std(precisions):.2f}")
 print(f"Recall:    {np.mean(recalls):.2f} ± {np.std(recalls):.2f}")
 print(f"F1 Score:  {np.mean(f1s):.2f} ± {np.std(f1s):.2f}")
-
-
-# confusion matrices across folds
-total_confusion = sum(confusion_matrices)
-print("\nCumulative Confusion Matrix:")
-print(total_confusion)
-plt.figure(figsize=(6, 5))
-sns.heatmap(total_confusion, annot=True, fmt='d', cmap='Blues',
-            xticklabels=["Pred 0", "Pred 1"],
-            yticklabels=["True 0", "True 1"])
-plt.title("Cumulative Confusion Matrix (Heatmap)")
-plt.xlabel("Predicted Label")
-plt.ylabel("True Label")
-plt.show()
-
