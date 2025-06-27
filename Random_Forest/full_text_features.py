@@ -15,7 +15,7 @@ drive.mount('/content/drive')
 data = pd.read_csv('/content/drive/MyDrive/Maram/Text/Features_Extraction_from_text/Features_full_Text/Bert/Bert_label.csv')
 
 # Separate features (X) and labels (y)
-X_combined = data.drop('Label', axis=1).values  # Features without the label column
+X_combined = data.drop(['Label','PID'], axis=1).values  # Features without the label column
 y_combined = data['Label'].values  # Labels column
 
 # Initialize Random Forest model
@@ -61,7 +61,7 @@ print(f"Precision: {np.mean(precisions):.2f} ± {np.std(precisions):.2f}")
 print(f"Recall:    {np.mean(recalls):.2f} ± {np.std(recalls):.2f}")
 print(f"F1 Score:  {np.mean(f1s):.2f} ± {np.std(f1s):.2f}")
 
-# confusion matrices 
+# confusion matrices
 total_confusion = sum(confusion_matrices)
 
 print("\n Confusion Matrix:")
@@ -75,4 +75,3 @@ plt.title("Cumulative Confusion Matrix (Heatmap)")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.show()
-
