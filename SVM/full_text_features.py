@@ -17,10 +17,10 @@ drive.mount('/content/drive')
 data = pd.read_csv('/content/drive/MyDrive/Maram/Text/Features_Extraction_from_text/Features_full_Text/Bert/Bert_label.csv')
 
 # Separate features (X) and labels (y)
-X_combined = data.drop('Label', axis=1).values  # Features without the label column
+X_combined = data.drop(['Label','PID'], axis=1).values  # Features without the label column
 y_combined = data['Label'].values  # Labels column
 
-# Initialize the SVM model
+# SVM model
 svm_model = SVC(kernel='rbf',C=1 ,gamma='scale', probability=True)
 
 # Set up Stratified K-Fold Cross-Validation
@@ -66,5 +66,3 @@ plt.title("Cumulative Confusion Matrix (Heatmap)")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.show()
-
-
